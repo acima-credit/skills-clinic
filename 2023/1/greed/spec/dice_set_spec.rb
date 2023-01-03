@@ -88,5 +88,84 @@ describe DiceSet do
 
       expect(dice_set.score).to eq(0)
     end
+
+    it "must be order-independent" do
+      dice_set.values = [1,2,3,4,5]
+      score1 = dice_set.score
+      dice_set.values = [5,4,3,2,1]
+      score2 = dice_set.score
+
+      expect(score1).to eq(score2)
+    end
+
+    it "returns 100 for a single 1" do
+      dice_set.values = [1]
+
+      expect(dice_set.score).to eq(100)
+    end
+
+    it "returns 50 for a single 5" do
+      dice_set.values = [5]
+
+      expect(dice_set.score).to eq(50)
+    end
+
+    it "returns 1000 for three 1's" do
+      dice_set.values = [1,1,1]
+
+      expect(dice_set.score).to eq(1000)
+    end
+
+    it "returns 600 for three 6's" do
+      dice_set.values = [6,6,6]
+
+      expect(dice_set.score).to eq(600)
+    end
+
+    it "returns 500 for three 5's" do
+      dice_set.values = [5,5,5]
+
+      expect(dice_set.score).to eq(500)
+    end
+
+    it "returns 400 for three 4's" do
+      dice_set.values = [4,4,4]
+
+      expect(dice_set.score).to eq(400)
+    end
+
+    it "returns 300 for three 3's" do
+      dice_set.values = [3,3,3]
+      expect(dice_set.score).to eq(300)
+    end
+
+    it "returns 200 for three 2's" do
+      dice_set.values = [2,2,2]
+      expect(dice_set.score).to eq(200)
+    end
+
+    it "returns 1100 for four 1's" do
+      dice_set.values = [1,1,3,1,1]
+
+      expect(dice_set.score).to eq(1100)
+    end
+
+    it "returns 1100 for three 1's and two 5's" do
+      dice_set.values = [5, 1, 1, 5, 1]
+
+      expect(dice_set.score).to eq(1100)
+    end
+
+    it "returns 250 for a mix of single 1's and 5's" do
+      dice_set.values = [5, 1, 3, 4, 1]
+
+      expect(dice_set.score).to eq(250)
+    end
+
+    it "returns 450 for three 4's and a 5" do
+      dice_set.values = [2, 4, 4, 5, 4]
+
+      expect(dice_set.score).to eq(450)
+    end
   end
 end
