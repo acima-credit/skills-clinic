@@ -8,9 +8,9 @@
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     <script language="JavaScript">
       /*
-        function Greeting() {
+        function Greeting(props) {
           return(
-            <h2 className="greeting">Hello World</h2>
+            <h2 className="greeting">Hello { props.target }</h2>
           )
         }
         function Wrapper() {
@@ -21,6 +21,26 @@
         const root = ReactDOM.createRoot(document.getElementById("root"))
 
         root.render(<Wrapper />)
+
+        OR
+
+        class Greeting extends React.Component {
+          render() {
+            return (
+              <h2 className="greeting">Hello { this.props.target }</h2>
+            )
+          }
+        }
+
+        class Wrapper extends React.Component {
+          render() {
+            return (
+              <div id="wrapper"><Greeting /></div>
+            )
+          }
+        }
+
+        ...
       */
       const Greeting = React.createElement("h2", { className: "greeting" }, "Hello World")
       const Wrapper  = React.createElement("div", { id: "wrapper" }, Greeting)
