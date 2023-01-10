@@ -111,41 +111,41 @@ describe DiceSet do
     end
 
     it "returns 1000 for three 1's" do
-      dice_set.values = [1,1,1]
+      dice_set.values = [1, 1, 1]
 
       expect(dice_set.score).to eq(1000)
     end
 
     it "returns 600 for three 6's" do
-      dice_set.values = [6,6,6]
+      dice_set.values = [6, 6, 6]
 
       expect(dice_set.score).to eq(600)
     end
 
     it "returns 500 for three 5's" do
-      dice_set.values = [5,5,5]
+      dice_set.values = [5, 5, 5]
 
       expect(dice_set.score).to eq(500)
     end
 
     it "returns 400 for three 4's" do
-      dice_set.values = [4,4,4]
+      dice_set.values = [4, 4, 4]
 
       expect(dice_set.score).to eq(400)
     end
 
     it "returns 300 for three 3's" do
-      dice_set.values = [3,3,3]
+      dice_set.values = [3, 3, 3]
       expect(dice_set.score).to eq(300)
     end
 
     it "returns 200 for three 2's" do
-      dice_set.values = [2,2,2]
+      dice_set.values = [2, 2, 2]
       expect(dice_set.score).to eq(200)
     end
 
     it "returns 1100 for four 1's" do
-      dice_set.values = [1,1,3,1,1]
+      dice_set.values = [1, 1, 3, 1, 1]
 
       expect(dice_set.score).to eq(1100)
     end
