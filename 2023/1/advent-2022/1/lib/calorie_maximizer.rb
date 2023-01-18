@@ -2,6 +2,6 @@
 
 class CalorieMaximizer
   def initialize()
-
+    
   end
 end
