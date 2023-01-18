@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class CalorieMaximizer
-  def initialize()
+  def initialize(file)
     
   end
 end
