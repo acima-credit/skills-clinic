@@ -13,7 +13,7 @@ const Form = (props) => {
     <section>
       Form
       <div className="row mb-3">
-        <label htmlFor="full-name" className="col-sm-2 col-form-label">Full Name*</label>
+        <label htmlFor="fullName" className="col-sm-2 col-form-label">Full Name*</label>
         <div className="col-sm-10">
           <input type="text" className="form-control" id="fullName" value={ props.employeeInfo.fullName } onChange={ handleEmployeeInfoChange } />
         </div>

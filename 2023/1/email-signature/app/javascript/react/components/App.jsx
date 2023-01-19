@@ -11,7 +11,7 @@ const App = (props) => {
       <p>Email Signature</p>
       <div className="row">
         <div className="col">
-          <Form employeeInfo={ employeeInfo} setEmployeeInfo={ setEmployeeInfo } />
+          <Form employeeInfo={ employeeInfo } setEmployeeInfo={ setEmployeeInfo } />
         </div>
         <div className="col">
           <Preview employeeInfo={ employeeInfo } />
