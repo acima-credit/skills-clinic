@@ -1,12 +1,9 @@
 import * as React from "react"
 
-const Form = (props) => {
+const Form = ({ employeeInfo, setEmployeeInfo }) => {
   const handleEmployeeInfoChange = (event) => {
-    const { id, value } = event.target
-    console.log(id)
-    console.log(value)
-    console.log(props.employeeInfo)
-    props.setEmployeeInfo({...props.employeeInfo, [id]: value })
+    const { id, value } = event.target // target == { id: "fullName", value: "Joe" }
+    setEmployeeInfo({...employeeInfo, [id]: value })
   }
 
   return(
@@ -15,13 +12,13 @@ const Form = (props) => {
         <div className="row mb-3">
           <label htmlFor="fullName" className="col-sm-3 col-form-label">Full Name*</label>
           <div className="col-sm-9">
-            <input type="text" className="form-control" id="fullName" value={ props.employeeInfo.fullName } onChange={ handleEmployeeInfoChange } />
+            <input type="text" className="form-control" id="fullName" value={ employeeInfo.fullName } onChange={ handleEmployeeInfoChange } />
           </div>
         </div>
         <div className="row mb-3">
           <label htmlFor="title" className="col-sm-3 col-form-label">Title</label>
           <div className="col-sm-9">
-            <input type="text" className="form-control" id="title" />
+            <input type="text" className="form-control" id="title" value={ employeeInfo.title } onChange={ handleEmployeeInfoChange }/>
           </div>
         </div>
         <div className="row mb-3">
@@ -36,13 +33,13 @@ const Form = (props) => {
         <div className="row mb-3">
           <label htmlFor="email" className="col-sm-3 col-form-label">Email*</label>
           <div className="col-sm-9">
-            <input type="text" className="form-control" id="email" />
+            <input type="text" className="form-control" id="email" value={ employeeInfo.email } onChange={ handleEmployeeInfoChange } />
           </div>
         </div>
         <div className="row mb-3">
           <label htmlFor="phone" className="col-sm-3 col-form-label">Phone</label>
           <div className="col-sm-9">
-            <input type="text" className="form-control" id="phone" />
+            <input type="text" className="form-control" id="phone" value={ employeeInfo.phone } onChange={ handleEmployeeInfoChange } />
           </div>
         </div>
       </div>

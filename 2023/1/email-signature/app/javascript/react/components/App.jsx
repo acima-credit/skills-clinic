@@ -5,7 +5,10 @@ import Preview from "./Preview.jsx"
 
 const App = (_props) => {
   const [employeeInfo, setEmployeeInfo] = useState({
-    fullName: ""
+    fullName: "",
+    title: "",
+    email: "",
+    phone: ""
   })
 
   return(

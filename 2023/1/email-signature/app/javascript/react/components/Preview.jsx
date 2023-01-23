@@ -1,15 +1,14 @@
 import * as React from "react"
 
-// const Preview = ({ employeeInfo }) => {
-const Preview = (props) => {
+const Preview = ({ employeeInfo }) => {
   return(
     <section className="card">
       <div className="card-body">
-        <div><b>{ props.employeeInfo.fullName }</b></div>
-        <div><i>{ props.title }</i></div>
+        <div><b>{ employeeInfo.fullName }</b></div>
+        <div><i>{ employeeInfo.title }</i></div>
         <p>Company Info</p>
-        <div>{ props.email }</div>
-        <div>{ props.phone }</div>
+        <div>{ employeeInfo.email }</div>
+        <div>{ employeeInfo.phone }</div>
       </div>
     </section>
   )

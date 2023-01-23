@@ -8,7 +8,8 @@ afterEach(() => { cleanup() })
 
 describe("Preview", ()  => {
   const employeeInfo = {
-    fullName: "David Brady"
+    fullName: "David Brady",
+    title: "sample title"
   }
 
   it("renders", () => {
@@ -18,6 +19,12 @@ describe("Preview", ()  => {
   it("renders the full name", () => {
     render(<Preview employeeInfo={ employeeInfo } />)
 
-    expect(document.body).toContainHTML(`<div><b>David Brady</b></div`)
+    expect(document.body).toContainHTML("<div><b>David Brady</b></div>")
+  })
+
+  it("renders the title", () => {
+    render(<Preview employeeInfo={ employeeInfo } />)
+
+    expect(document.body).toContainHTML("<div><i>sample title</i></div>")
   })
 })
