@@ -3,12 +3,14 @@ import { useState } from "react";
 import Form from "./Form.jsx"
 import Preview from "./Preview.jsx"
 
-const App = (props) => {
-  const [employeeInfo, setEmployeeInfo] = useState({ fullName: ""})
+const App = (_props) => {
+  const [employeeInfo, setEmployeeInfo] = useState({
+    fullName: ""
+  })
 
   return(
     <div className="container">
-      <p>Email Signature</p>
+      <h1 className="display-6 my-4">Email Signature Generator</h1>
       <div className="row">
         <div className="col">
           <Form employeeInfo={ employeeInfo } setEmployeeInfo={ setEmployeeInfo } />
