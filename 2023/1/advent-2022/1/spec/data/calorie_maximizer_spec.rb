@@ -11,7 +11,8 @@ RSpec.describe CalorieMaximizer do
 		end
 
 		context "with args" do
-      let(:args) { doubler(File) }
+      let(:file) {  }
+			let(:args) { [file] }
 		end
 	end
 end
