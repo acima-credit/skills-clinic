@@ -8,7 +8,8 @@ const App = (_props) => {
     fullName: "",
     title: "",
     email: "",
-    phone: ""
+    phone: "",
+    company: "Acima"
   })
 
   return(

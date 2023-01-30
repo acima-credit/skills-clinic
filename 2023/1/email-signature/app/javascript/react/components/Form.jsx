@@ -24,9 +24,9 @@ const Form = ({ employeeInfo, setEmployeeInfo }) => {
         <div className="row mb-3">
           <label htmlFor="company" className="col-sm-3 col-form-label">Company*</label>
           <div className="col-sm-9">
-            <select className="form-select" id="company">
-              <option value="1">One</option>
-              <option value="2">Two</option>
+            <select className="form-select" id="company" value={ employeeInfo.company } onChange={ handleEmployeeInfoChange }>
+              <option value="Acima">Acima</option>
+              <option value="RAC">RAC</option>
             </select>
           </div>
         </div>
