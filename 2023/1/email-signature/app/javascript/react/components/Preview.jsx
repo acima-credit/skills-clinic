@@ -30,8 +30,20 @@ const Preview = ({ employeeInfo }) => {
         <div><b>{ employeeInfo.fullName }</b></div>
         <div><i>{ employeeInfo.title }</i></div>
         { addressForCompany(employeeInfo.company) }
-        <div>{ employeeInfo.email }</div>
-        <div>{ employeeInfo.phone }</div>
+        {
+          employeeInfo.email &&
+          <div>
+            <i className="bi bi-envelope me-2"></i>
+            { employeeInfo.email }
+          </div>
+        }
+        {
+          employeeInfo.phone &&
+          <div>
+            <i className="bi bi-phone me-2"></i>
+            { employeeInfo.phone }
+          </div>
+        }
       </div>
     </section>
   )
