@@ -1,8 +1,10 @@
 import { useRef } from "react";
+import { useState } from "react"
 import * as React from "react";
 
 const Preview = ({ employeeInfo }) => {
   const signatureRef = useRef(null)
+  const [showError, setShowError] = useState(false)
 
   const addressForCompany = (company) => {
     switch(company) {
@@ -27,47 +29,27 @@ const Preview = ({ employeeInfo }) => {
     }
   }
 
-  // https://stackoverflow.com/questions/39501289/in-reactjs-how-to-copy-text-to-clipboard
-  // Get the text field
-  // var copyText = document.getElementById("myInput");
-
-  // // Select the text field
-  // copyText.select();
-  // copyText.setSelectionRange(0, 99999); // For mobile devices
-
-  //  // Copy the text inside the text field
-  // navigator.clipboard.writeText(copyText.value);
-
-  // // Alert the copied text
-  // alert("Copied the text: " + copyText.value);
-  const copy = (event) => {
-    console.log(event)
-    console.log(signatureRef)
+  const copy = (_event) => {
+    if (employeeInfo.fullName != "" && employeeInfo.company != "" && employeeInfo.email != "") {
+      navigator.clipboard.writeText(signatureRef.current.innerHTML)
+      setShowError(false)
+    } else {
+      setShowError(true)
+    }
   }
 
   return(
     <section className="card">
       <div className="card-body">
         <div ref={ signatureRef }>
-          <div><b>{ employeeInfo.fullName }</b></div>
-          <div><i>{ employeeInfo.title }</i></div>
+          { employeeInfo.fullName && <div><b>{ employeeInfo.fullName }</b></div> }
+          { employeeInfo.title && <div><i>{ employeeInfo.title }</i></div> }
           { addressForCompany(employeeInfo.company) }
-          {
-            employeeInfo.email &&
-            <div>
-              <i className="bi bi-envelope me-2"></i>
-              { employeeInfo.email }
-            </div>
-          }
-          {
-            employeeInfo.phone &&
-            <div>
-              <i className="bi bi-phone me-2"></i>
-              { employeeInfo.phone }
-            </div>
-          }
+          { employeeInfo.email && <div>📧 { employeeInfo.email }</div> }
+          { employeeInfo.phone && <div>☎ { employeeInfo.phone }</div> }
         </div>
         <button onClick={ copy } className="btn btn-primary mt-3">Copy to clipboard</button>
+        { showError && <div className="text-danger">Please fill out all required fields</div> }
       </div>
     </section>
   )

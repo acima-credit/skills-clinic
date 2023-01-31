@@ -5,7 +5,7 @@ This app was created with `rails new email-signature --javascript=esbuild --skip
 To run this app `bin/dev`
 
 ### Requirements
-This app will have two parts. On the left will be a form and on the left will be a signature preview with a "copy" button that will copy the generated HTML to the clipboard.
+This app will have two parts. On the left will be a form and on the right will be a signature preview with a "copy" button that will copy the generated HTML to the clipboard.
 
 The form will prompt for the following:
 
