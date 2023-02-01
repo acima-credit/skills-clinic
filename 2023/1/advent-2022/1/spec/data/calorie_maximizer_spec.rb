@@ -3,6 +3,7 @@ require_relative '../../lib/calorie_maximizer'
 RSpec.describe CalorieMaximizer do
 	describe ".new" do
 		let(:args) { [] }
+		let(:valid_file_path) { __FILE__ }
 
 		subject { described_class.new(*args) }
 
@@ -11,7 +12,7 @@ RSpec.describe CalorieMaximizer do
 		end
 
 		context "with args" do
-      let(:file) {  }
+      let(:file_path) {  }
 			let(:args) { [file] }
 		end
 	end
