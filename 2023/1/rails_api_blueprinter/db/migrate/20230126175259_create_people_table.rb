@@ -4,7 +4,7 @@ class CreatePeopleTable < ActiveRecord::Migration[7.0]
   def up
     return nil if table_exists?(TABLE)
 
-    enable_extension 'pgcrypto'
+    enable_extension "pgcrypto"
 
     create_table(TABLE) do |t|
       t.string :first_name, null: false

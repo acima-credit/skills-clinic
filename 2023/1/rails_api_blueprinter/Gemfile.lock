@@ -184,6 +184,7 @@ GEM
 
 PLATFORMS
   x86_64-darwin-19
+  x86_64-darwin-22
 
 DEPENDENCIES
   blueprinter (~> 0.25.3)
@@ -202,4 +203,4 @@ RUBY VERSION
    ruby 2.7.2p137
 
 BUNDLED WITH
-   2.3.24
+   2.3.12

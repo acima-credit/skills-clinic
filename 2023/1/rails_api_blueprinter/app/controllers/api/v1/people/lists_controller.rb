@@ -7,7 +7,9 @@ module Api
     module People
       class ListsController < ApplicationController
         def index
-          render json: { first_name: "john" }
+          people = Person.all
+          binding.pry
+          render json: people
         end
       end
     end
