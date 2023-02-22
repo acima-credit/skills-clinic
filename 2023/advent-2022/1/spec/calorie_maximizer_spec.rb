@@ -22,7 +22,8 @@ RSpec.describe CalorieMaximizer do
 	end
 
 	describe "#call" do
-		subject { described_class.new(*args).call }
+		let(:kwargs) { {} }
+		subject { described_class.new(*args, **kwargs).call }
 
 		context "when empty file" do
 			let(:valid_file_path) { Pathname.new(__dir__).join("data", "empty_calories.txt") }
@@ -32,6 +33,13 @@ RSpec.describe CalorieMaximizer do
 
 		context "when non-empty file" do
 			it { is_expected.to eq(24000) }
+
+			context "with number of elves as an arg" do
+				let(:args) { [file] }
+				let(:kwargs) { { elves: 3 } }
+
+				it { is_expected.to eq(45000) }
+			end
 		end
 	end
 end
