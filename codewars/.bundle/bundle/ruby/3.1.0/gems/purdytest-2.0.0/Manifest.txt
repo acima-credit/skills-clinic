@@ -1,0 +1,7 @@
+.autotest
+CHANGELOG.rdoc
+Manifest.txt
+README.rdoc
+Rakefile
+lib/purdytest.rb
+test/test_purdytest.rb
