@@ -4,8 +4,9 @@ require_relative '../lib/strategy_analyzer'
 require 'pathname'
 
 RSpec.describe StrategyAnalyzer do
-  let(:kwargs) { { file_path: file_path } }
+  let(:kwargs) { { file_path: file_path, version: version } }
   let(:file_path) { Pathname.new(__dir__).join("data", "strategy_guide.txt") }
+  let(:version) { 1 }
 
   describe "#new" do
     subject { described_class.new(**kwargs) }
@@ -28,6 +29,30 @@ RSpec.describe StrategyAnalyzer do
   describe "#call" do
     subject { described_class.new(**kwargs).call }
 
-    it { is_expected.to eq(15) }
+    context "with part 1 rules" do
+      context "with a sample file" do
+        it { is_expected.to eq(15) }
+      end
+
+      context "with a full size data set" do
+        let(:file_path) { Pathname.new(__dir__).join("data", "strategy_guide_full.txt") }
+
+        it { is_expected.to eq(12586) }
+      end
+    end
+
+    context "with part 2 rules" do
+      let(:version) { 2 }
+
+      context "with a sample file" do
+        it { is_expected.to eq(12) }
+      end
+
+      context "with a full size data set" do
+        let(:file_path) { Pathname.new(__dir__).join("data", "strategy_guide_full.txt") }
+
+        it { is_expected.to eq(13193) }
+      end
+    end
   end
 end
