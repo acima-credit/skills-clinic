@@ -45,22 +45,16 @@ submarines  = 0
 # method to check adjacent elements
 
 def adjacent_elements(field)
+  ones = set()
   HEIGHT.times do |x|
     WIDTH.times do |y|
-        field[x][y] == 1
-        return false if diagonals(x,y)
-      # check against right index
-      if
-        true
+      return false if diagonals(x,y)
+      if field[x][y] == 1
+        ones.append((x,y))
       end
-      # check below
-      if
-      end
-      # check left
-
-      # check up
     end
   end
+  return coordinates(ones)
 end
 
 def diagonals(x,y)
