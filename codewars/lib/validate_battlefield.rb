@@ -18,17 +18,20 @@ BATTLESHIP_SIZE = 4
 CRUISER_SIZE    = 3
 DESTROYER_SIZE  = 2
 SUBMARINE_SIZE  = 1
+WIDTH           = 10
+HEIGHT          = 10
 EXPECTED_BATTLESHIP_COUNT = 1
 EXPECTED_CRUISER_COUNT    = 2
 EXPECTED_DESTROYER_COUNT  = 3
 EXPECTED_SUBMARINE_COUNT  = 4
-WIDTH           = 10
-HEIGHT          = 10
 
 def validate_battlefield(field)
   return false unless field.size == WIDTH
   return false unless field.first.size == HEIGHT
-  return false unless field.flatten.sum == 1*BATTLESHIP_SIZE + 2*CRUISER_SIZE + 3*DESTROYER_SIZE + 4*SUBMARINE_SIZE
+  return false unless field.flatten.sum == EXPECTED_BATTLESHIP_COUNT*BATTLESHIP_SIZE +
+    EXPECTED_CRUISER_COUNT*CRUISER_SIZE +
+    EXPECTED_DESTROYER_COUNT*DESTROYER_SIZE +
+    EXPECTED_SUBMARINE_COUNT*SUBMARINE_SIZE
 
  true
 end
@@ -52,7 +55,7 @@ def adjacent_elements(field)
       end
       # check below
       if
-
+      end
       # check left
 
       # check up
@@ -62,20 +65,21 @@ end
 
 def diagonals(x,y)
   diagonal = false
-  if x-1 >= 0 or y-1 >= 0 #if not out of bounds
-    diagonal = field[x-1],[y-1] == 1 or diagonal
+  unless x-1 >= 0 || y-1 >= 0 #if not out of bounds
+    diagonal = field[x-1][y-1] == 1 || diagonal
   end
-  if x+1 <= 10 or y-1 >= 0 #if not out of bounds
-    diagonal =  field[x+1],[y-1] == 1 or diagonal
+  unless x+1 <= WIDTH || y-1 >= 0 #if not out of bounds
+    diagonal =  field[x+1][y-1] == 1 || diagonal
   end
-  if x-1 >= 0 or y+1 <= 10 #if not out of bounds
-    diagonal =  field[x-1],[y+1] == 1 or diagonal
+  unless x-1 >= 0 || y+1 <= HEIGHT #if not out of bounds
+    diagonal =  field[x-1][y+1] == 1 || diagonal
   end
-  if x+1 <= 10 or y+1 <= 10 #if not out of bounds
-    diagonal =  field[x+1],[y+1] == 1 or diagonal
+  unless x+1 <= WIDTH || y+1 <= HEIGHT #if not out of bounds
+    diagonal =  field[x+1][y+1] == 1 || diagonal
   end
   return diagonal
 end
+
 
 
 
@@ -104,3 +108,4 @@ end
 # no diagonals
 # ships are straight lines
 # count ship lengths and incrament variable
+
