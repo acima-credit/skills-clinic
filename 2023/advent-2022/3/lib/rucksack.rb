@@ -13,7 +13,8 @@ class Rucksack
   end
 
   def call
-    get_data
+    return get_data if @version == 1
+    return get_data_2 if @version == 2
   end
 
   private
@@ -29,6 +30,14 @@ class Rucksack
       .flatten # Returns a single array by reducing the dimensionality. e.g ["p", "L", "P", "v", "t", "s"]
       .map(&method(:get_priority)) # Returns the ASCII values per each letter e.g [16, 38, 42, 22, 20, 19]
       .sum # Adds up the values of the array
+  end
+
+  def get_data_2
+    File.open(@file_path, "r")
+      .each_line
+      .lazy
+      .map(&:chars) # e.g. [by rucksack[v,J,r,...],[j,q,H,...]]
+
   end
 
   def get_priority(letter)
