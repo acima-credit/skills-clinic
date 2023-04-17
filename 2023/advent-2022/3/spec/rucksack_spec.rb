@@ -5,7 +5,7 @@ require 'pathname'
 
 RSpec.describe Rucksack do
   let(:kwargs) { { file_path: file_path, version: version } }
-  let(:file_path) { Pathname.new(__dir__).join("data", "sample.data.txt") }
+  let(:file_path) { Pathname.new(__dir__).join("data", "sample2.data.txt") }
   let(:version) { 1 }
 
   describe "#new" do

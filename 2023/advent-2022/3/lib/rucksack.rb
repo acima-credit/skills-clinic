@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Rucksack
-
   Error     = Class.new(StandardError)
   FileError = Class.new(Error)
 
@@ -9,11 +8,12 @@ class Rucksack
     raise FileError unless File.exist?(file_path)
 
     @file_path = file_path
-    @version =  version
+    @version = version
   end
 
   def call
-    get_data
+    # get_data
+    get_badge
   end
 
   private
@@ -38,5 +38,20 @@ class Rucksack
   def split_line(str)
     mid = str.size / 2
     [str[0, mid], str[mid..]]
+  end
+
+  def get_badge
+    result = File.open(@file_path, "r")
+      .each_line
+      .each_slice(3)
+      .lazy
+      .map{ |sack| sack.map(&:chars) }
+      .to_a
+    puts result
+      # .map{ |row| row.reduce(&:&) } 
+      # .force # Returns an array of non-lazy enumerators e.g [["p"], ["L"], ["P"], ["v"], ["t"], ["s"]]
+      # .flatten # Returns a single array by reducing the dimensionality. e.g ["p", "L", "P", "v", "t", "s"]
+      # .map(&method(:get_priority)) # Returns the ASCII values per each letter e.g [16, 38, 42, 22, 20, 19]
+      # .sum
   end
 end
