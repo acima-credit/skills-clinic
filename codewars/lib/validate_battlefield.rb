@@ -14,6 +14,27 @@
 
 # This is all you need to solve this kata. If you're interested in more information about the game, visit this link.
 
+class Position
+  attr_accessor :x,:y
+
+  def initialize(x:, y:)
+    @x = x
+    @y = y
+  end
+
+  def eql?(other)
+    self == other
+  end
+
+  def hash
+    [@x,@y].hash
+  end
+
+  def ==(other)
+    @x == other.x && @y == other.y
+  end
+end
+
 BATTLESHIP_SIZE = 4
 CRUISER_SIZE    = 3
 DESTROYER_SIZE  = 2
@@ -102,4 +123,3 @@ end
 # no diagonals
 # ships are straight lines
 # count ship lengths and incrament variable
-
