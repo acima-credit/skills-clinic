@@ -28,6 +28,15 @@ RSpec.describe Rucksack do
 
   describe "#call" do
     subject { described_class.new(**kwargs).call }
-    it { is_expected.to eq 157}
+
+    context "with part 1 rules" do
+      it { is_expected.to eq 157}
+    end
+
+    context "with part 2 rules" do
+      let(:version) { 2 }
+
+      it { is_expected.to eq 70 }
+    end
   end
 end

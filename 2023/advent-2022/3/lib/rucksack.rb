@@ -12,8 +12,7 @@ class Rucksack
   end
 
   def call
-    # get_data
-    get_badge
+    @version == 1 ? get_data : get_badge
   end
 
   private
@@ -41,17 +40,15 @@ class Rucksack
   end
 
   def get_badge
-    result = File.open(@file_path, "r")
+    File.open(@file_path, "r")
       .each_line
       .each_slice(3)
       .lazy
-      .map{ |sack| sack.map(&:chars) }
-      .to_a
-    puts result
-      # .map{ |row| row.reduce(&:&) } 
-      # .force # Returns an array of non-lazy enumerators e.g [["p"], ["L"], ["P"], ["v"], ["t"], ["s"]]
-      # .flatten # Returns a single array by reducing the dimensionality. e.g ["p", "L", "P", "v", "t", "s"]
-      # .map(&method(:get_priority)) # Returns the ASCII values per each letter e.g [16, 38, 42, 22, 20, 19]
-      # .sum
+      .map{ |sack| sack.map(&:strip).map(&:chars) }
+      .map{ |row| row.reduce(&:&) }
+      .force
+      .flatten
+      .map(&method(:get_priority))
+      .sum
   end
 end
