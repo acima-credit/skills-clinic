@@ -66,12 +66,19 @@ submarines  = 0
 # method to check adjacent elements
 
 def adjacent_elements(field)
-  ones = set()
+  ships = []
+
   HEIGHT.times do |x|
     WIDTH.times do |y|
       return false if diagonals(x,y)
+      point = Point.new(x: x, y: y)
+# loop through sets array
+# check inclusion of point in any of the sets
+# if in a set, use that set
+# if not, create a new set and add this point to it
       if field[x][y] == 1
-        ones.append((x,y))
+        ships.append((x,y))
+      elsif point.include?(ships)
       end
     end
   end
