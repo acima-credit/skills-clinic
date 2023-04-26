@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# stuff
 class Rucksack
   Error     = Class.new(StandardError)
   FileError = Class.new(Error)
@@ -40,7 +41,7 @@ class Rucksack
   end
 
   def get_badge
-    File.open(@file_path, "r")
+    File.open(@file_path, 'r')
       .each_line
       .each_slice(3)
       .lazy
@@ -52,3 +53,5 @@ class Rucksack
       .sum
   end
 end
+
+puts Rucksack.new(file_path: './spec/data/sample3.data.txt', version: 2).call
