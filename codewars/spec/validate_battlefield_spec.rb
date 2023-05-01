@@ -13,6 +13,7 @@ describe "validate_battlefield" do
              [0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
              [0, 0, 0, 0, 0, 0, 0, 1, 0, 0],
              [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
+
     Test.expect(validate_battlefield(field), "Nope, something is wrong!")
   end
 
@@ -44,5 +45,20 @@ describe "validate_battlefield" do
              [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
 
     Test.assert_equals(validate_battlefield(field), false, "Too many ships")
+  end
+
+  it "returns false if there are any overlapping or adjacent ships" do
+    field = [[1, 0, 0, 0, 0, 1, 1, 0, 0, 0],
+             [0, 1, 0, 0, 0, 0, 0, 0, 1, 0],
+             [1, 0, 0, 0, 1, 1, 1, 0, 1, 0],
+             [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 0, 0, 0, 0, 1, 0],
+             [0, 0, 0, 0, 1, 1, 1, 0, 0, 0],
+             [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+             [1, 0, 0, 1, 0, 0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 0, 0, 0, 1, 0, 0],
+             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
+
+    Test.assert_equals(validate_battlefield(field), false, "Ships cannot overlap ")
   end
 end

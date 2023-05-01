@@ -54,30 +54,28 @@ def validate_battlefield(field)
     EXPECTED_DESTROYER_COUNT*DESTROYER_SIZE +
     EXPECTED_SUBMARINE_COUNT*SUBMARINE_SIZE
 
- true
+  true
+  # check_ship_positions(field)
 end
 
 # method to count the length of the ships and how many we find
-battleships = 0
-cruisers    = 0
-destroyers  = 0
-submarines  = 0
-
-# method to check adjacent elements
-
-def adjacent_elements(field)
+def check_ship_positions(field)
   ships = []
 
   HEIGHT.times do |x|
     WIDTH.times do |y|
-      return false if diagonals(x,y)
+      return false if adjacent_or_overlapping_diagonals(x,y)
       point = Point.new(x: x, y: y)
-# loop through sets array
+# loop through field as x, y points
+# if a point is "true"
+# check for diagonals, return false if any of the diagonals are true
 # check inclusion of point in any of the sets
-# if in a set, use that set
-# if not, create a new set and add this point to it
+# if in a set, use that set as current set
+# if not, create a new set as the current set and add this point to it as
+# check point to right and below the current point
+# if either of them are true add them to the current set
       if field[x][y] == 1
-        ships.append((x,y))
+        ships.append(x, y)
       elsif point.include?(ships)
       end
     end
@@ -85,18 +83,19 @@ def adjacent_elements(field)
   return coordinates(ones)
 end
 
-def diagonals(x,y)
+# diagonals occur when ships are adjacent or overlapping
+def adjacent_or_overlapping_diagonals(x,y)
   diagonal = false
-  unless x-1 >= 0 || y-1 >= 0 #if not out of bounds
+  unless x-1 >= 0 || y-1 >= 0 # if not out of bounds
     diagonal = field[x-1][y-1] == 1 || diagonal
   end
-  unless x+1 <= WIDTH || y-1 >= 0 #if not out of bounds
+  unless x+1 <= WIDTH || y-1 >= 0 # if not out of bounds
     diagonal =  field[x+1][y-1] == 1 || diagonal
   end
-  unless x-1 >= 0 || y+1 <= HEIGHT #if not out of bounds
+  unless x-1 >= 0 || y+1 <= HEIGHT # if not out of bounds
     diagonal =  field[x-1][y+1] == 1 || diagonal
   end
-  unless x+1 <= WIDTH || y+1 <= HEIGHT #if not out of bounds
+  unless x+1 <= WIDTH || y+1 <= HEIGHT # if not out of bounds
     diagonal =  field[x+1][y+1] == 1 || diagonal
   end
   return diagonal
