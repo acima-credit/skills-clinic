@@ -30,5 +30,11 @@ RSpec.describe CampCleanup do
 
 			it { is_expected.to eq(0) }
 		end
+
+		context "when not empty file" do
+			let(:valid_file_path) { Pathname.new(__dir__).join("data", "camp_cleanup.txt") }
+
+			it { is_expected.to eq(2) }
+		end
   end
 end

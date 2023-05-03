@@ -17,10 +17,19 @@ class CampCleanup
       .each_line
       .lazy
       .filter(&method(:process_line))
+      .force
       .size || 0
   end
 
-  def process_line
-    # empty
+  def process_line(line)
+    ranges = line.split(/,/)
+      .map {|string| string.split(/-/)}
+      .map {|pair| pair[0].to_i..pair[1].to_i}
+
+    case @version
+    when 1
+      ranges[0].cover?(ranges[1]) ||
+      ranges[1].cover?(ranges[0])
+    end
   end
 end
