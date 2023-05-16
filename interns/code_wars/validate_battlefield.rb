@@ -8,8 +8,8 @@ TOTAL_SHIPS = {
 }.freeze
 
 def validate_battlefield(field)
-  return false' unless field.flatten.sum == 20
-  return false' unless validate_no_adjacent_ships(field)
+  return false unless field.flatten.sum == 20
+  return false unless validate_no_adjacent_ships(field)
 end
 
 def validate_no_adjacent_ships(field)
