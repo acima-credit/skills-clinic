@@ -5,21 +5,21 @@ require 'pathname'
 
 RSpec.describe CleanUp do
   let(:kwargs) { { file_path: file_path, version: version } }
-  let(:file_path) { Pathname.new(__dir__).join("data", "input.data.txt") }
+  let(:file_path) { Pathname.new(__dir__).join('data', 'input.data.txt') }
   let(:version) { 1 }
 
-  describe "#new" do
+  describe '#new' do
     subject { described_class.new(**kwargs) }
 
-    context "when file_path invalid" do
-      let(:file_path) { "badpath" }
+    context 'when file_path invalid' do
+      let(:file_path) { 'badpath' }
 
-      it "raises a file error" do
+      it 'raises a file error' do
         expect { subject }.to raise_error(described_class::FileError)
       end
     end
 
-    context "when file_path valid" do
+    context 'when file_path valid' do
       it "doesn't raise a file error" do
         expect { subject }.to_not raise_error
       end
@@ -40,25 +40,52 @@ RSpec.describe CleanUp do
   #   end
   # end
 
-  describe "#overlap" do
-    let(r1) {}
-    let(r2) {}
-    let(subject) { described_class.new(**kwargs).send(:overlap, r1, r2) }
+  describe '#overlap' do
+    let(:r1) {}
+    let(:r2) {}
+    subject { described_class.new(**kwargs).send(:overlap, r1, r2) }
 
-    context "overlap is given ranges that overlap" do
-      let(r1) { [ 1 , 3 ] }
-      let(r2) { [2,4 ] }
+    context 'overlap is given ranges that overlap' do
+      let(:r1) { [1, 3] }
+      let(:r2) { [2, 3] }
 
-      it "returns true" do
+      it 'returns true' do
         expect(subject).to eq(true)
       end
     end
 
-    context "overlap is given ranges that don't overlap" do
-      let(r1) {[1,3]}
-      let(r2) {[4,6]}
+    context 'overlap is given ranges that overlap' do
+      let(:r2) { [1, 3] }
+      let(:r1) { [2, 3] }
 
-      it "returns false" do
+      it 'returns true' do
+        expect(subject).to eq(true)
+      end
+    end
+
+    context 'two fully overlapping ranges' do
+      let(:r1) { [1, 2] }
+      let(:r2) { [1, 2] }
+
+      it 'return true' do
+        expect(subject).to eq(true)
+      end
+    end
+
+    context 'partial overlap' do
+      let(:r1) { [1, 2] }
+      let(:r2) { [2, 3] }
+
+      it 'returns false' do
+        expect(subject).to eq(false)
+      end
+    end
+
+    context 'overlap is given ranges that do not overlap' do
+      let(:r1) { [1, 3] }
+      let(:r2) { [4, 6] }
+
+      it 'returns false' do
         expect(subject).to eq(false)
       end
     end
