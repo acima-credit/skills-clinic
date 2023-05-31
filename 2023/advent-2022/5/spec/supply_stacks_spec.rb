@@ -25,4 +25,10 @@ RSpec.describe SupplyStacks do
       end
     end
   end
+
+  describe '#call' do
+    subject { described_class.new(**kwargs).call }
+
+    it { is_expected.to eq('CMZ') }
+  end
 end
