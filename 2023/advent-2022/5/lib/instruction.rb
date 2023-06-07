@@ -14,7 +14,11 @@ class Instruction
 
   def call(stacks)
     @quantity.times do
-      stacks[@destination - 1].push(stacks[@source - 1].pop) unless stacks[@source - 1].empty?
+      unless stacks[@source - 1].empty?
+        item = stacks[@source - 1].pop
+        stacks[@destination - 1].push(item)
+      end
     end
+    stacks
   end
 end
