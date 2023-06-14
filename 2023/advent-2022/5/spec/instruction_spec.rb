@@ -4,7 +4,6 @@ require_relative '../lib/instruction'
 require 'pathname'
 
 RSpec.describe Instruction do
-  let(:kwargs) { :line }
   let(:line) { 'move 1 from 2 to 1' }
 
   # describe '#parse_line' do
