@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'instruction'
+require_relative 'instruction'
 
 # Advent of Code Day 5: Supply Stacks
 class SupplyStacks
@@ -22,14 +22,18 @@ class SupplyStacks
 
   def version_one
     stack_count = read_num_stacks
-    File.open(@file_path, 'r') do |file|
-      @stacks = stacks(file, stack_count)
-      @instructions = get_instructions(file)
-      puts "instructions #{@instructions.inspect}"
-    end
+    @stacks = Array.new(stack_count) { [] }
+    parse(stack_count)
 
     # step 3: excecute the instructions
     # step 4: return the final value from each stack
+  end
+
+  def parse(stack_count)
+    File.open(@file_path, 'r') do |file|
+      stacks(file, stack_count)
+      @instructions = get_instructions(file)
+    end
   end
 
   def read_num_stacks
@@ -42,27 +46,23 @@ class SupplyStacks
   end
 
   def stacks(file, stack_count)
-    @stacks = Array.new(stack_count) { [] }
-    puts "stacks:"
-    p @stacks
     file.each_line do |line|
-      break if line.strip.empty?
+      break unless line.match?(/\[/)
 
-      current_stack = line_into_stacks(line)
-    #  (probably don't use this line) current_stacks.each_with_index { |element, index| @stacks[index] << element }
+      current_row = line_into_stacks(line, stack_count)
+      @stacks.map!.with_index do |stack, stack_index|
+        character = current_row[stack_index]
+        character ? [character] + stack : stack
+      end
     end
   end
 
-  def line_into_stacks(line)
-    arr = []
-    (line.length % 4).times do |x|
-      counter = x * 4
-      # current_segment = line[counter * 4...(counter + 1) * 4]
-      arr[counter / 4] << line[counter + 1] if line[counter + 1] == /[A-Z]/
-      p "letter #{line[counter + 1]}"
-      # counter += 4
+  def line_into_stacks(line, stack_count)
+    (0...stack_count).map do |stack_index|
+      character_index = (stack_index * 4) + 1
+      character = line[character_index]
+      character =~ /[A-Z]/ ? character : nil
     end
-    p "temparr #{arr}"
   end
 
   def get_instructions(file)
@@ -78,5 +78,3 @@ class SupplyStacks
     moves
   end
 end
-
-# stacks function starts reading line from the 4th line, not getting the stacks/characters we want
