@@ -30,5 +30,23 @@ RSpec.describe SupplyStacks do
     subject { described_class.new(**kwargs).call }
 
     it { is_expected.to eq('CMZ') }
+
+    context 'with full dataset' do
+      let(:file_path) { Pathname.new(__dir__).join('data', 'full_input_data.txt') }
+
+      it { is_expected.to eq('ZSQVCCJLL') }
+    end
+
+    context 'version 2' do
+      let(:version) { 2 }
+
+      it { is_expected.to eq('MCD') }
+
+      context 'with full dataset' do
+        let(:file_path) { Pathname.new(__dir__).join('data', 'full_input_data.txt') }
+  
+        it { is_expected.to eq('QZFJRWHGS') }
+      end
+    end
   end
 end
