@@ -24,9 +24,10 @@ class SupplyStacks
     stack_count = read_num_stacks
     @stacks = Array.new(stack_count) { [] }
     parse(stack_count)
-
     # step 3: excecute the instructions
+    @instructions.each { |instruction| instruction.call(@stacks) }
     # step 4: return the final value from each stack
+    @stacks.map(&:last).join
   end
 
   def parse(stack_count)
@@ -68,6 +69,10 @@ class SupplyStacks
   def get_instructions(file)
     moves = find_moves(file)
     moves.map { |move| Instruction.new(move) }
+  end
+
+  def execute_instructions(instruction)
+    instruction.call(@stacks)
   end
 
   def find_moves(file)

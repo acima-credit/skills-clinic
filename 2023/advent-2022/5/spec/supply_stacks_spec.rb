@@ -27,8 +27,7 @@ RSpec.describe SupplyStacks do
   end
 
   describe '#call' do
-    subject { described_class.new(**kwargs).call }
-
-    it { is_expected.to eq('CMZ') }
+      subject { described_class.new(**kwargs).call }
+      it { is_expected.to eq('CMZ') }
   end
 end
