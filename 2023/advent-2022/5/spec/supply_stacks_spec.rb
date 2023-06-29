@@ -32,9 +32,9 @@ RSpec.describe SupplyStacks do
     it { is_expected.to eq('CMZ') }
 
     context 'with full dataset' do
-      let(:file_path) { Pathname.new(__dir__).join('data', 'full_input_data.txt') }
+      let(:file_path) { Pathname.new(__dir__).join('data', 'full.input.data.txt') }
 
-      it { is_expected.to eq('ZSQVCCJLL') }
+      it { is_expected.to eq('QNHWJVJZW') }
     end
 
     context 'version 2' do
@@ -43,9 +43,9 @@ RSpec.describe SupplyStacks do
       it { is_expected.to eq('MCD') }
 
       context 'with full dataset' do
-        let(:file_path) { Pathname.new(__dir__).join('data', 'full_input_data.txt') }
-  
-        it { is_expected.to eq('QZFJRWHGS') }
+        let(:file_path) { Pathname.new(__dir__).join('data', 'full.input.data.txt') }
+
+        it { is_expected.to eq('BPCZJLFJW') }
       end
     end
   end
