@@ -2,17 +2,17 @@
 
 # an analyzer for rock-paper-scissors strategy guides
 class StrategyAnalyzer
-  OPPONENT_ROCK     = "A"
-  OPPONENT_PAPER    = "B"
-  OPPONENT_SCISSORS = "C"
+  OPPONENT_ROCK     = 'A'
+  OPPONENT_PAPER    = 'B'
+  OPPONENT_SCISSORS = 'C'
 
-  ROCK     = "X"
-  PAPER    = "Y"
-  SCISSORS = "Z"
+  ROCK     = 'X'
+  PAPER    = 'Y'
+  SCISSORS = 'Z'
 
-  LOSE = "X"
-  DRAW = "Y"
-  WIN  = "Z"
+  LOSE = 'X'
+  DRAW = 'Y'
+  WIN  = 'Z'
 
   # scoring system
   # Part 1
@@ -29,8 +29,8 @@ class StrategyAnalyzer
     [OPPONENT_PAPER, SCISSORS] => 9,
     [OPPONENT_SCISSORS, ROCK] => 7,
     [OPPONENT_SCISSORS, PAPER] => 2,
-    [OPPONENT_SCISSORS, SCISSORS] => 6,
-  }
+    [OPPONENT_SCISSORS, SCISSORS] => 6
+  }.freeze
 
   SCORES_2 = {
     [OPPONENT_ROCK, LOSE] => 3, # scissors
@@ -41,8 +41,8 @@ class StrategyAnalyzer
     [OPPONENT_PAPER, WIN] => 9, # scissors
     [OPPONENT_SCISSORS, LOSE] => 2, # paper
     [OPPONENT_SCISSORS, DRAW] => 6, # scissors
-    [OPPONENT_SCISSORS, WIN] => 7, # rock
-  }
+    [OPPONENT_SCISSORS, WIN] => 7 # rock
+  }.freeze
 
   Error     = Class.new(StandardError)
   FileError = Class.new(Error)
@@ -61,10 +61,10 @@ class StrategyAnalyzer
   private
 
   def score_file
-    File.open(@file_path, "r")
-      .each_line
-      .lazy
-      .map(&:split) # e.g. [["A", "Y"], ["B", "X"], ["C", "Z"]]
-      .sum{|op| @scoring_scheme[op]}
+    File.open(@file_path, 'r')
+        .each_line
+        .lazy
+        .map(&:split) # e.g. [['A', 'Y'], ['B', 'X'], ['C', 'Z']]
+        .sum { |op| @scoring_scheme[op] }
   end
 end
