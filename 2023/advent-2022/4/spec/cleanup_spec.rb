@@ -26,67 +26,26 @@ RSpec.describe CleanUp do
     end
   end
 
-  # describe "#call" do
-  #   subject { described_class.new(**kwargs).call }
+  describe '#call' do
+    subject { described_class.new(**kwargs).call }
 
-  #   context "with part 1 rules" do
-  #     it { is_expected.to eq 157}
-  #   end
+    context 'with part 1 rules' do
+      it { is_expected.to eq 2 }
 
-  #   context "with part 2 rules" do
-  #     let(:version) { 2 }
-
-  #     it { is_expected.to eq 70 }
-  #   end
-  # end
-
-  describe '#overlap' do
-    let(:r1) {}
-    let(:r2) {}
-    subject { described_class.new(**kwargs).send(:overlap, r1, r2) }
-
-    context 'overlap is given ranges that overlap' do
-      let(:r1) { [1, 3] }
-      let(:r2) { [2, 3] }
-
-      it 'returns true' do
-        expect(subject).to eq(true)
+      context 'with full dataset' do
+        let(:file_path) { Pathname.new(__dir__).join('data', 'sample.data.txt') }
+        it { is_expected.to eq 560 }
       end
     end
 
-    context 'overlap is given ranges that overlap' do
-      let(:r2) { [1, 3] }
-      let(:r1) { [2, 3] }
+    context 'with part 2 rules' do
+      let(:version) { 2 }
 
-      it 'returns true' do
-        expect(subject).to eq(true)
-      end
-    end
+      it { is_expected.to eq 4 }
 
-    context 'two fully overlapping ranges' do
-      let(:r1) { [1, 2] }
-      let(:r2) { [1, 2] }
-
-      it 'return true' do
-        expect(subject).to eq(true)
-      end
-    end
-
-    context 'partial overlap' do
-      let(:r1) { [1, 2] }
-      let(:r2) { [2, 3] }
-
-      it 'returns false' do
-        expect(subject).to eq(false)
-      end
-    end
-
-    context 'overlap is given ranges that do not overlap' do
-      let(:r1) { [1, 3] }
-      let(:r2) { [4, 6] }
-
-      it 'returns false' do
-        expect(subject).to eq(false)
+      context 'with full dataset' do
+        let(:file_path) { Pathname.new(__dir__).join('data', 'sample.data.txt') }
+        it { is_expected.to eq 839 }
       end
     end
   end

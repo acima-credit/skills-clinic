@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# stuff
+# Camp Cleanup
 class CleanUp
   Error     = Class.new(StandardError)
   FileError = Class.new(Error)
@@ -10,39 +10,33 @@ class CleanUp
 
     @file_path = file_path
     @version = version
-    @ranges = nil
   end
 
   def call
-    # @version == 1 ? get_data : get_badge
+    process_file
   end
 
   private
 
-  def overlap(r1, r2)
-    # [1,2] [3,4] should return false
-    # [1,4] [2,3] should return true
-    # [1, 3], [2, 4]
-    # [1, 4], [2, 3]
-    # [2, 3], [1, 4]
+  def process_file
+    File.open(@file_path, 'r')
+        .each_line
+        .lazy
+        .filter(&method(:process_line))
+        .force
+        .size
+  end
 
-    if r2.first >= r1.first
-      r2.last <= r1.last
+  def process_line(line)
+    ranges = line.split(/,/)
+                 .map { |string| string.split('-') }
+                 .map { |pair| pair[0].to_i..pair[1].to_i }
+
+    case @version
+    when 1
+      ranges[0].cover?(ranges[1]) || ranges[1].cover?(ranges[0])
     else
-      r1.last <= r2.last
+      ranges[0].begin <= ranges[1].end && ranges[0].end >= ranges[1].begin
     end
   end
-
-  def get_ranges
-    @ranges = File.open(@file_path, 'r')
-                  .each_line
-                  .split(',')
-                  .map { |r| r.split('-') } # [[#,#][#,#]]
-  end
-
-  def find_all_overlaps
-    # @ranges.reduce .....
-  end
 end
-
-# puts CleanUp.new(file_path: './spec/data/input.data.txt', version: 1).call
