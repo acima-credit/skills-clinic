@@ -3,6 +3,8 @@
 # Advent of Code Day 6: Tuning Trouble
 class TuningTrouble
   MAXIMUM_FILE_SIZE = 1_000_000
+  KERNEL_SIZE       = 4
+  LARGE_KERNEL_SIZE = 14
   Error             = Class.new(StandardError)
   FileError         = Class.new(Error)
 
@@ -16,16 +18,16 @@ class TuningTrouble
   end
 
   def call
-    @version == 1 ? version_one : version_two
+    @version == 1 ? process(KERNEL_SIZE) : process(LARGE_KERNEL_SIZE)
   end
 
   private
 
-  def version_one
+  def process(kernel_size)
     File.open(@file_path, 'r') do |file|
-      line = file.gets
-
-      char_arr = line.chars
+      file.gets.chars.each_cons(kernel_size).with_index.find do |group|
+        group.first.uniq.count == kernel_size
+      end.last + kernel_size # First element after packet indicator
     end
   end
 end

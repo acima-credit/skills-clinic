@@ -45,6 +45,19 @@ RSpec.describe TuningTrouble do
 
   describe '#call' do
     subject { described_class.new(**kwargs).call }
+
     it { is_expected.to eq(7) }
+
+    context 'full dataset' do
+      let(:file_path) { Pathname.new(__dir__).join('data', 'big_input_data.txt') }
+
+      it { is_expected.to eq(1080) }
+
+      context 'version 2' do
+        let(:version) { 2 }
+
+        it { is_expected.to eq(3645) }
+      end
+    end
   end
 end
