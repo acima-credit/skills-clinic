@@ -26,7 +26,7 @@ RSpec.describe TuningTrouble do
 
       context 'with an empty file' do
         let(:file_path) { Pathname.new(__dir__).join('data', 'empty.data.txt') }
-        it "should raise a file error" do
+        it 'should raise a file error' do
           expect { subject }.to raise_error(described_class::FileError)
         end
       end
@@ -36,7 +36,7 @@ RSpec.describe TuningTrouble do
           allow(File).to receive(:size).and_return 1_000_001
         end
 
-        it "should raise a file error" do
+        it 'should raise a file error' do
           expect { subject }.to raise_error(described_class::FileError)
         end
       end
@@ -49,14 +49,14 @@ RSpec.describe TuningTrouble do
     it { is_expected.to eq(7) }
 
     context 'full dataset' do
-      let(:file_path) { Pathname.new(__dir__).join('data', 'big_input_data.txt') }
+      let(:file_path) { Pathname.new(__dir__).join('data', 'full.input.data.txt') }
 
-      it { is_expected.to eq(1080) }
+      it { is_expected.to eq(1210) }
 
       context 'version 2' do
         let(:version) { 2 }
 
-        it { is_expected.to eq(3645) }
+        it { is_expected.to eq(3476) }
       end
     end
   end
