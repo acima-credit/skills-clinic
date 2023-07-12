@@ -75,6 +75,10 @@ class SupplyStacks
     moves.map { |move| Instruction.new(move, @version) }
   end
 
+  def execute_instructions(instruction)
+    instruction.call(@stacks)
+  end
+
   def find_moves(file)
     moves = []
     file.each_line do |line|
