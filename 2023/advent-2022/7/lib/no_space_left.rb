@@ -14,7 +14,18 @@ class NoSpaceLeft
     @file_path = file_path
     @version = version
   end
+
+  def call
+    @version == 1 ? version_one : version_two
+  end
+
+  def version_one
+    File.open(@file_path, 'r') do |file|
+
+    end
+  end
+
+  def version_two
+    #
+  end
 end
-
-
-#

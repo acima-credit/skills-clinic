@@ -24,7 +24,7 @@ RSpec.describe Node do
   end
   describe '#add_node' do
     let(:new_name) { 'New Node' }
-    let(:new_node) { Node.new(new_name) }
+    let(:new_node) { described_class.new(new_name) }
     let(:instance) { described_class.new(name, **kwargs) }
     subject { instance.add_node(new_node) }
 
@@ -37,7 +37,39 @@ RSpec.describe Node do
     context 'When we add a valid node' do
       it 'Adds a new node' do
         subject
-        expect(instance.children).to eq [new_node]
+        expect(instance.children).to eq Set.new([new_node])
+      end
+    end
+    context 'When we try to add a duplicate node' do
+      it "Doesn't add a new node" do
+        subject
+        subject
+        expect(instance.children.length).to eq(1)
+      end
+    end
+  end
+  describe '#size' do
+    let(:size) { 10 }
+    let(:kwargs) { { size: size } }
+    let(:instance) { described_class.new(name, **kwargs) }
+
+    subject { instance.size }
+
+    context 'one-deep' do
+      it 'Has the expected size' do
+        expect(subject).to eq(10)
+      end
+    end
+    context 'recursion' do
+      let(:new_name) { 'New Node' }
+      let(:new_size) { 15 }
+      let(:new_kwargs) { { size: new_size } }
+      let(:new_node) { described_class.new(new_name, **new_kwargs) }
+      before do
+        instance.add_node(new_node)
+      end
+      it 'Has the expected size' do
+        expect(subject).to eq(25)
       end
     end
   end
