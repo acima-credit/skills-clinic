@@ -40,4 +40,13 @@ RSpec.describe NoSpaceLeft do
       end
     end
   end
+
+  describe '#call' do
+    subject { described_class.new(**kwargs).call }
+
+    context 'when version one' do
+      it { is_expected.to eq 95_437 }
+    end
+    context 'when version two'
+  end
 end

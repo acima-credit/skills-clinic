@@ -20,6 +20,7 @@ class Node
 
     name == other.name
   end
+  alias == eql?
 
   def add_node(new_node)
     raise ArgumentError, 'New node passed in is not a node' unless new_node.is_a? Node

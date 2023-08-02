@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative '../lib/node'
 
 RSpec.describe Node do
@@ -71,6 +73,47 @@ RSpec.describe Node do
       it 'Has the expected size' do
         expect(subject).to eq(25)
       end
+    end
+  end
+  describe '#==' do
+    let(:instance) { described_class.new(name, **kwargs) }
+    let(:other) { described_class.new(other_name, **kwargs) }
+    let(:other_name) { name }
+
+    subject { instance == other }
+
+    context 'when the other is not a node' do
+      let(:other) { nil }
+
+      it { is_expected.to be_falsy }
+    end
+
+    context 'when the other is a node' do
+      context "when the names don't match" do
+        let(:other_name) { 'other name' }
+
+        it { is_expected.to be_falsy }
+      end
+      context 'when the names do match' do
+        it { is_expected.to be_truthy }
+      end
+    end
+  end
+
+  describe '#hash' do
+    let(:instance) { described_class.new(name, **kwargs) }
+    let(:other) { described_class.new(other_name, **kwargs) }
+    let(:other_name) { name }
+
+    subject { instance.hash == other.hash }
+
+    context "when the names don't match" do
+      let(:other_name) { 'other name' }
+
+      it { is_expected.to be_falsy }
+    end
+    context 'when the names do match' do
+      it { is_expected.to be_truthy }
     end
   end
 end
