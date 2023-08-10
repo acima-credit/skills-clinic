@@ -4,8 +4,10 @@
 class TerminalLine
   # Command
   class Command
+    attr :command, :args
+
     def initialize(line)
-      _, command, *args = line.split(' ')
+      _, @command, @args = line.split(' ')
     end
 
     def command?
@@ -19,8 +21,10 @@ class TerminalLine
 
   # Output
   class Output
+    attr :size_or_dir, :name
+
     def initialize(line)
-      size_or_dir, name = line.split(' ')
+      @size_or_dir, @name = line.split(' ')
     end
 
     def command?
@@ -29,6 +33,18 @@ class TerminalLine
 
     def output?
       true
+    end
+
+    def dir?
+      @size_or_dir == 'dir'
+    end
+
+    def size
+      if dir?
+        0
+      else
+        @size_or_dir.to_i
+      end
     end
   end
 
