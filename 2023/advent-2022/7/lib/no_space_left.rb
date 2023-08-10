@@ -21,7 +21,10 @@ class NoSpaceLeft
 
   def version_one
     File.open(@file_path, 'r') do |file|
-
+      file.each_line do |line|
+        terminal_line = TerminalLine.parse(line)
+        terminal_line.command?
+      end
     end
   end
 

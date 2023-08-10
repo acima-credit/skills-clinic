@@ -4,8 +4,13 @@
 class TerminalLine
   # Command
   class Command
+    attr_reader :command, :args
+
     def initialize(line)
       _, command, *args = line.split(' ')
+
+      @command = command
+      @args = args
     end
 
     def command?
@@ -19,8 +24,13 @@ class TerminalLine
 
   # Output
   class Output
-    def initialize(line)
+    attr_reader :size_or_dir, :name
+
+    def initialize(line, is_dir)
       size_or_dir, name = line.split(' ')
+      @is_dir =  is_dir
+      @size_or_dir = size_or_dir
+      @name = name
     end
 
     def command?
@@ -36,7 +46,8 @@ class TerminalLine
     case line[0]
     when '$' then Command.new(line)
     # when nil then Output.new('')
-    else Output.new(line)
+    when 'd' then Output.new(line, true)
+    else Output.new(line, false)
     end
   end
 end
