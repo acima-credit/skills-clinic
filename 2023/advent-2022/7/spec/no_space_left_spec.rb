@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require_relative '../lib/no_space_left'
 require 'pathname'
 
 RSpec.describe NoSpaceLeft do
   let(:kwargs) { { file_path: file_path, version: version } }
-  let(:file_path) { Pathname.new(__dir__).join('data', 'data.txt') }
+  let(:file_path) { Pathname.new(__dir__).join('data', 'input.data.txt') }
   let(:version) { 1 }
 
   describe '#new' do
@@ -23,7 +25,7 @@ RSpec.describe NoSpaceLeft do
       end
 
       context 'with an empty file' do
-        let(:file_path) { Pathname.new(__dir__).join('data', 'emptyFile.txt') }
+        let(:file_path) { Pathname.new(__dir__).join('data', 'empty.file.txt') }
         it 'should raise a file error' do
           expect { subject }.to raise_error(described_class::FileError)
         end

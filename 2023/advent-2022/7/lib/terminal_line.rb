@@ -26,9 +26,8 @@ class TerminalLine
   class Output
     attr_reader :size_or_dir, :name
 
-    def initialize(line, is_dir)
+    def initialize(line)
       size_or_dir, name = line.split(' ')
-      @is_dir =  is_dir
       @size_or_dir = size_or_dir
       @name = name
     end
@@ -45,9 +44,7 @@ class TerminalLine
   def self.parse(line)
     case line[0]
     when '$' then Command.new(line)
-    # when nil then Output.new('')
-    when 'd' then Output.new(line, true)
-    else Output.new(line, false)
+    else Output.new(line)
     end
   end
 end

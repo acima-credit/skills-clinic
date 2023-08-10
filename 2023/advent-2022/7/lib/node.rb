@@ -1,14 +1,15 @@
 # frozen_string_literal: true
 
 require 'set'
-# Top level Docs!!
+
+# Node
 class Node
   attr_reader :name, :children
 
   def initialize(name, size: 0)
     @children = Set.new
     @name = name
-    @size = size
+    @size = size.to_i
   end
 
   def hash
