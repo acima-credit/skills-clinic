@@ -1,11 +1,9 @@
-# frozen_string_literal: true
-
 require_relative '../lib/no_space_left'
 require 'pathname'
 
 RSpec.describe NoSpaceLeft do
   let(:kwargs) { { file_path: file_path, version: version } }
-  let(:file_path) { Pathname.new(__dir__).join('data', 'input.data.txt') }
+  let(:file_path) { Pathname.new(__dir__).join('data', 'data.txt') }
   let(:version) { 1 }
 
   describe '#new' do
@@ -23,24 +21,32 @@ RSpec.describe NoSpaceLeft do
       it "doesn't raise a file error" do
         expect { subject }.to_not raise_error
       end
+
+      context 'with an empty file' do
+        let(:file_path) { Pathname.new(__dir__).join('data', 'emptyFile.txt') }
+        it 'should raise a file error' do
+          expect { subject }.to raise_error(described_class::FileError)
+        end
+      end
+
+      context 'with a large file' do
+        before do
+          allow(File).to receive(:size).and_return 1_000_001
+        end
+
+        it 'should raise a file error' do
+          expect { subject }.to raise_error(described_class::FileError)
+        end
+      end
     end
   end
 
   describe '#call' do
     subject { described_class.new(**kwargs).call }
 
-    it { is_expected.to eq(95_437) }
-
-    context 'full dataset' do
-      let(:file_path) { Pathname.new(__dir__).join('data', 'full.input.data.txt') }
-
-      it { is_expected.to eq(1210) }
-
-      context 'version 2' do
-        let(:version) { 2 }
-
-        it { is_expected.to eq(3476) }
-      end
+    context 'when version one' do
+      it { is_expected.to eq 95_437 }
     end
+    context 'when version two'
   end
 end
