@@ -21,8 +21,17 @@ class NoSpaceLeft
 
   def version_one
     File.open(@file_path, 'r') do |file|
+      root = Node.new('root')
+      while line = file.gets
+        type = type_of_line(line)
 
+      end
     end
+  end
+  def type_of_line(line)
+    return "command" if line[0] == "$"
+    return "directory" if line[0].match?(/[1-9]/)
+    "file"
   end
 
   def version_two
