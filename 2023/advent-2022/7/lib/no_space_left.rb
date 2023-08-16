@@ -20,19 +20,36 @@ class NoSpaceLeft
   end
 
   def version_one
+    visited = []
     File.open(@file_path, 'r') do |file|
-      root = Node.new('root')
+      root = Node.new('/')
+      current_dir = root
+      visited.push(current_dir)
       while line = file.gets
-        type = type_of_line(line)
+        current_item = TerminalLine.parse(line)
+        next if current_item.command? && !cd?(current_item)
 
+        if current_item.command?
+          if current_item.args == '..'
+            current_dir = visited.pop
+          elsif current_item.args == '/'
+            visited.classe
+            current_dir = root
+          else
+            index_node = Node.new(current_item.args.first)
+            current_dir = current_dir.children.select { |node| node == index_node }
+          end
+        else
+          current_dir.add_node(Node.new(current_item.name, current_item.size))
+        end
       end
     end
   end
-  def type_of_line(line)
-    return "command" if line[0] == "$"
-    return "directory" if line[0].match?(/[1-9]/)
-    "file"
+
+  def cd?(terminal_item)
+    terminal_item.command == 'cd'
   end
+
 
   def version_two
     #
