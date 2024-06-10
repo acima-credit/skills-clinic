@@ -6,7 +6,8 @@ require 'pathname'
 # rubocop:disable Metrics/BlockLength
 RSpec.describe CalibrationDocument do
   let(:kwargs) { { file_path: file_path, version: version } }
-  let(:file_path) { Pathname.new(__dir__).join('data', 'part_1.txt') }
+  let(:file_path) { Pathname.new(__dir__).join('data', file_name) }
+  let(:file_name) { 'part_1.txt' }
   let(:version) { 1 }
 
   describe '#new' do
@@ -30,12 +31,15 @@ RSpec.describe CalibrationDocument do
   describe '#call' do
     subject { described_class.new(**kwargs).call }
 
-    context 'Get the two-digit number' do
-      # it 'is actually two digits' do
-
-      # end
-
+    context 'when part 1' do
       it { is_expected.to eq(142) }
+    end
+
+    context 'when part 2' do
+      let(:version) { 2 }
+      let(:file_name) { 'part_2.txt' }
+
+      it { is_expected.to eq(281) }
     end
   end
 end
