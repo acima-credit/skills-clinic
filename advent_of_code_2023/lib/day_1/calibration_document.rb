@@ -29,72 +29,77 @@ class CalibrationDocument
   private
 
   def calibrate
+    File.readlines(@file_path).sum do |line|
       digits = line.scan(/\d/)
       (digits.first + digits.last).to_i
     end
   end
 
+  # def calibrate_2
+  #   File.readlines(@file_path).each do |line|
+  #     curWord = ""
+  #     line.chars.each do |x|
+  #       if x.is_a? Integer
+  #         curWord = ""
+  #       else
+  #         curWord += x
+  #       end
+  #       line = MAP.keys.select{ |substring| curWord.include?(substring) }.map{|x| line.sub!(x, MAP[x])}.join
+  #       digits = line.scan(/\d/)
+  #       p (digits.first + digits.last).to_i
+  #     end
+  #   end
+  # end
+
   def calibrate_2
-    # File.readlines(@file_path).each do |line|
-    #   curWord = ""
-    #   line.chars.each do |x|
-    #     if x.is_a? Integer
-    #       curWord = ""
-    #     else
-    #       curWord += x
-    #     end
-    #     line = MAP.keys.select{ |substring| curWord.include?(substring) }.map{|x| line.sub!(x, MAP[x])}.join
-    #     digits = line.scan(/\d/)
-    #     p (digits.first + digits.last).to_i
-    #   end
-    # end
+    File.readlines(@file_path).each do |line|
+      smallest = [line.length, 0]
+      largest = [-1, line.length]
+      MAP.each_key do |number|
+        temp_small = line.length
+        temp_small = line.index(number) unless line.index(number).nil?
+        smallest = temp_small, temp_small + number.length - 1 if temp_small < smallest[0]
 
-    #   smallest = [line.length, 0]
-    #   largest = [-1, line.length]
-    #   MAP.each_key do |number|
-    #     temp_small = line.length
-    #     temp_small = line.index(number) unless line.index(number).nil?
-    #     if temp_small < smallest[0]
-    #       smallest = temp_small, temp_small + number.length - 1
-    #     end
+        temp_large = 0
+        temp_large = line.rindex(number) unless line.rindex(number).nil?
+        largest = temp_large, temp_large + number.length - 1 if temp_large > largest[0]
+      end
 
-    #     temp_large = 0
-    #     temp_large = line.rindex(number) unless line.rindex(number).nil?
-    #     if temp_large > largest[0]
-    #       largest = temp_large, temp_large + number.length - 1
-    #     end
-    #   end
+      # find which number is at the smallest and largest index
 
-    #   # find which number is at the smallest and largest index
-    #   p (MAP[line[smallest[0]..smallest[1]]] + MAP[line[largest[0]..largest[1]]]).to_i
-    #   # gsub the first
-    #   line.gsub!(line[smallest[0]..smallest[1]], MAP[line[smallest[0]..smallest[1]]])
-    #   # gsub the end
-    #   line.gsub!(line[largest[0]..largest[1]], MAP[line[largest[0]..largest[1]]])
+      # gsub the end (to prevent the indexes from getting messed up at the beginning)
+      # p line[largest[0]..largest[1]]
+      # p MAP[line[largest[0]..largest[1]]]
+      line.gsub!(line[largest[0]..largest[1]], MAP[line[largest[0]..largest[1]]])
+      p line
+      # gsub the first
+      # p line[smallest[0]..smallest[1]]
+      # p MAP[line[smallest[0]..smallest[1]]]
+      line.gsub!(line[smallest[0]..smallest[1]], MAP[line[smallest[0]..smallest[1]]])
+      p line
 
-    #   p line
-    #   digits = line.scan(/\d/)
-    #   p (digits.first + digits.last).to_i
-    # end
+      digits = line.scan(/\d/)
+      p (digits.first + digits.last).to_i
+    end
   end
 end
 
 # https://ruby-doc.org/3.2.2/String.html#method-i-index
 
-      # MAP.each_key do |number|
-      #   temp = line.gsub(number, MAP[number])
-      #   line = temp unless temp.nil?
-      # end
+# MAP.each_key do |number|
+#   temp = line.gsub(number, MAP[number])
+#   line = temp unless temp.nil?
+# end
 
-      # line.gsub!(/\w\W*/, MAP)
-      # p "#{line} modified line------------"
+# line.gsub!(/\w\W*/, MAP)
+# p "#{line} modified line------------"
 
-      # temp = ''
-      # str = ''
-      # line.chars.map.with_index do |char, i|
-      #   p char
-      #   temp = line[0..i]
-      #   p "#{temp} temp-----------"
-      #   if MAP.key?(temp) then str += MAP[temp] end
-      # end
-      # p str
+# temp = ''
+# str = ''
+# line.chars.map.with_index do |char, i|
+#   p char
+#   temp = line[0..i]
+#   p "#{temp} temp-----------"
+#   if MAP.key?(temp) then str += MAP[temp] end
+# end
+# p str
