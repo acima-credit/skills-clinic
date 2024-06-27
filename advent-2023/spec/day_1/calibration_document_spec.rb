@@ -32,14 +32,31 @@ RSpec.describe CalibrationDocument do
     subject { described_class.new(**kwargs).call }
 
     context 'when part 1' do
-      it { is_expected.to eq(142) }
+      context 'when example' do
+        it { is_expected.to eq(142) }
+      end
+
+      context 'when input' do
+        let(:file_name) { 'input.txt' }
+
+        it { is_expected.to eq(55_123) }
+      end
     end
 
     context 'when part 2' do
       let(:version) { 2 }
-      let(:file_name) { 'part_2.txt' }
 
-      it { is_expected.to eq(281) }
+      context 'when example' do
+        let(:file_name) { 'part_2.txt' }
+
+        it { is_expected.to eq(281) }
+      end
+
+      context 'when input' do
+        let(:file_name) { 'input.txt' }
+
+        it { is_expected.to eq(55_260) }
+      end
     end
   end
 end

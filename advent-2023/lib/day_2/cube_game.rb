@@ -19,13 +19,17 @@ class CubeGame
   end
 
   def call
+    @version == 1 ? part_one : part_two
+  end
+
+  private
+
+  def part_one
     File.foreach(@file_path).sum do |line|
       id, draws = parse_line(line)
       draws.all? { |draw| draw_valid?(draw) } ? id : 0
     end
   end
-
-  private
 
   def parse_line(line)
     id = line.match(/Game (\d+)/)[1].to_i
@@ -33,9 +37,28 @@ class CubeGame
     [id, draws]
   end
 
-  def draw_valid?(draw)
+  def get_num_color(draw)
     num = draw[0].to_i
     color = draw[1].to_sym
+    [num, color]
+  end
+
+  def draw_valid?(draw)
+    num, color = get_num_color(draw)
     num <= MAX_CUBES[color]
+  end
+
+  def part_two
+    File.foreach(@file_path).sum do |line|
+      _, draws = parse_line(line)
+      line_minimum = {}
+      line_minimum.default = 0
+
+      draws.each do |draw|
+        num, color = get_num_color(draw)
+        line_minimum[color] = num if line_minimum[color] < num
+      end
+      line_minimum.values.inject(:*)
+    end
   end
 end
